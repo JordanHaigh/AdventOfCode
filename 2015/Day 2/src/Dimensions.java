@@ -19,16 +19,20 @@ public class Dimensions {
         this.height = height;
     }
 
-    public int findSmallestDimension(){
-        int firstDimension = (length*width);
-        int secondDimension = (width*height);
-        int thirdDimension = (height*length);
+    public int findSmallestArea(){
+        return findSmallestDimension(length * width, width * height, height * length);
+    }
 
-        if(firstDimension <= secondDimension && firstDimension <= thirdDimension) return firstDimension;
-        if(secondDimension <= firstDimension && secondDimension <= thirdDimension) return secondDimension;
-        if(thirdDimension <= firstDimension && thirdDimension <= secondDimension) return thirdDimension;
+    private int findSmallestDimension(int i, int i2, int i3) {
 
-        return firstDimension;//all are equal
+        if((i) <= (i2) && (i) <= (i3)) return (i);
+        if((i2) <= (i) && (i2) <= (i3)) return (i2);
+        return (i3);
+
+    }
+
+    public int findSmallestPerimeter(){
+        return findSmallestDimension(length+width, width+height, height+length);
     }
 
     public int calculateSurfaceArea(){
@@ -36,9 +40,18 @@ public class Dimensions {
         return (2*length*width) + (2*width*height) + (2*height*length);
     }
 
+    public int calculateVolume(){
+        return length*width*height;
+    }
+    public int totalRibbonRequired(){
+        int total = 2* findSmallestPerimeter();
+        total += calculateVolume();
+        return total;
+    }
+
     public int totalPaperRequiredForDimensions(){
         int total = calculateSurfaceArea();
-        total += findSmallestDimension();
+        total += findSmallestArea();
         return total;
     }
 }

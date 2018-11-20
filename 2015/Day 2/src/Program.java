@@ -9,10 +9,11 @@ public class Program {
         DataParser dataParser = new DataParser();
         List<Dimensions> allDimensions = dataParser.readFile(filePath);
 
-        int totalWrappingPaper = 0;
+        int totalWrappingPaperAndRibbon = 0;
         for(Dimensions d : allDimensions){
-            totalWrappingPaper += d.totalPaperRequiredForDimensions();
+            //totalWrappingPaperAndRibbon += d.totalPaperRequiredForDimensions();
+            totalWrappingPaperAndRibbon += d.totalRibbonRequired();
         }
-        System.out.println(totalWrappingPaper);
+        System.out.println(totalWrappingPaperAndRibbon);
     }
 }
