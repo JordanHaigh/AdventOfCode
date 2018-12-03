@@ -7,14 +7,27 @@ import java.util.List;
 public class Program {
 
     static List<String> fileLines = new ArrayList<>();
+    static int xAxis = 1000;
+    static int yAxis = 1000;
+    static int[][] dotArray = new int[xAxis][yAxis];
+
     public static void main(String[]args){
         if(args.length == 0)
             readFile("input.txt");
         else
             readFile(args[0]);
 
-        part1();
 
+        //Populate dot array
+
+
+        for(int i = 0;i < xAxis;i++){
+            for(int j = 0;j < yAxis;j++){
+                dotArray[i][j] = 0;
+            }
+        }
+        part1();
+        part2();
     }
 
     private static void readFile(String filePath){
@@ -26,16 +39,7 @@ public class Program {
     }
 
     private static void part1(){
-        //Populate dot array
-        int xAxis = 1000;
-        int yAxis = 1000;
-        int[][] dotArray = new int[xAxis][yAxis];
 
-        for(int i = 0;i < xAxis;i++){
-            for(int j = 0;j < yAxis;j++){
-                dotArray[i][j] = 0;
-            }
-        }
 
         int squareInchOverlap = 0;
         //Go through each line of file lines
@@ -59,6 +63,25 @@ public class Program {
             }
         }
         System.out.println(squareInchOverlap);
+    }
+
+    private static void part2(){
+        for(String line : fileLines){
+            //Parse claim
+            Claim claim = parseClaim(line);
+            boolean flag = true;
+            //Work out its positioning in the dot array and print it
+            for(int i = claim.getInchesFromTopEdge(); i < claim.getInchesFromTopEdge()+ claim.getHeight();i++){
+                for(int j = claim.getInchesFromLeftEdge(); j < claim.getInchesFromLeftEdge()+ claim.getWidth();j++){
+                    if(dotArray[i][j]>1)
+                        flag = false;
+                }
+            }
+            if(flag){
+                System.out.println("No doubles: " + claim.getId());
+            }
+        }
+
     }
 
     private static Claim parseClaim(String line){
