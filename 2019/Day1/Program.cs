@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Common;
 namespace Day1 {
     class Program {
         static void Main(string[] args) {
